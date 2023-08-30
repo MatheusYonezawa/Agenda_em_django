@@ -1,0 +1,54 @@
+{% extends "model-page.html" %}
+
+{% block content %}
+<style>
+table, th, td {
+    border:1px solid black;
+  }
+  </style>
+
+    <h2>Agendamentos</h2>
+    <a href="evento/">
+        <button type="button"> Novo Evento </button>
+    </a>    
+
+    <ul style ="font-size: 18px">
+    <table>
+
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Local do evento</th>
+                <th>Data e hora</th>
+                <th>Descrição</th>
+              </tr>
+            </thead>
+
+    {% for evento in eventos %}
+         {% if evento.get_evento_atrasado %}
+          <tbody style="color: red;">
+          <tr>
+            <td>{{evento.titulo}}</td>
+            <td>{{evento.local_evento}}</td>
+            <td>{{evento.get_data_evento}}</td>
+            <td>{{evento.descricao}}</td>
+            <td>(<a href= "evento/?id={{evento.id}}"> <button>Editar</button> </a>
+                / <a href="evento/delete/{{evento.id}}/"> <button>Excluir</button></a>)</td>
+          </tr>
+        </tbody>
+        {% else %}
+          <tbody>
+            <tr>
+              <td>{{evento.titulo}}</td>
+              <td>{{evento.local_evento}}</td>
+              <td>{{evento.get_data_evento}}</td>
+              <td>{{evento.descricao}}</td>
+              <td>(<a href= "evento/?id={{evento.id}}"> <button>Editar</button> </a>
+                  / <a href="evento/delete/{{evento.id}}/"> <button>Excluir</button></a>)</td>
+            </tr>
+          </tbody>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    </table>
+{% endblock %}
